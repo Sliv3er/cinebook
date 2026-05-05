@@ -1,0 +1,17 @@
+# Uploads (user-generated content)
+assets/uploads/movies/*
+!assets/uploads/movies/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
