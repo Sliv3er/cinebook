@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450" viewBox="0 0 300 450">
-  <rect fill="#14141f" width="300" height="450"/>
-  <text x="150" y="220" text-anchor="middle" fill="#4a4a5e" font-family="Arial" font-size="14" font-weight="600">Pas d'affiche</text>
-  <path d="M135 180 L165 180 L165 195 L155 190 L150 195 L145 190 L135 195Z" fill="#4a4a5e" opacity="0.5"/>
-</svg>
