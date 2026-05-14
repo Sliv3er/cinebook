@@ -138,6 +138,31 @@ h3 { font-size: 1.25rem; }
 .movie-card .movie-title { font-family: var(--font-display); font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
 .movie-card .movie-meta { font-size: 0.8rem; color: var(--text-secondary); display: flex; gap: 12px; }
 
+/* --- Favorite Button --- */
+.movie-card-wrapper { position: relative; }
+.fav-btn {
+    position: absolute; top: 10px; right: 10px; z-index: 10;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #888; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; transition: all 0.25s ease;
+}
+.fav-btn:hover { background: rgba(0,0,0,0.8); color: #f1c40f; transform: scale(1.1); }
+.fav-btn.is-fav { color: #f1c40f; background: rgba(241,196,15,0.15); border-color: rgba(241,196,15,0.3); }
+.fav-btn.is-fav:hover { background: rgba(241,196,15,0.25); }
+
+/* --- Nav Badge --- */
+.nav-badge {
+    position: absolute; top: -6px; right: -10px;
+    background: var(--accent); color: #fff;
+    font-size: 0.65rem; font-weight: 700;
+    min-width: 18px; height: 18px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 5px;
+}
+
 /* --- No Poster Placeholder --- */
 .no-poster {
     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;

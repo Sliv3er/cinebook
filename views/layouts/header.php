@@ -15,6 +15,21 @@
             <nav class="site-nav">
                 <a href="<?= BASE_URL ?>/index.php?page=home" class="<?= ($page ?? '') === 'home' ? 'active' : '' ?>">Accueil</a>
                 <a href="<?= BASE_URL ?>/index.php?page=movies" class="<?= ($page ?? '') === 'movies' ? 'active' : '' ?>">Films</a>
+                <?php if (isLoggedIn()): ?>
+                    <?php
+                    // Charger le compteur de favoris
+                    require_once __DIR__ . '/../../models/Favorite.php';
+                    $__favModel = new Favorite();
+                    $__favCount = $__favModel->countByUser(currentUserId());
+                    $__favIds   = $__favModel->getUserFavoriteIds(currentUserId());
+                    ?>
+                    <a href="<?= BASE_URL ?>/index.php?page=favorites" class="<?= ($page ?? '') === 'favorites' ? 'active' : '' ?>" style="position:relative;">
+                        <i class="fas fa-star" style="color:#f1c40f;margin-right:4px;"></i>Favoris
+                        <?php if ($__favCount > 0): ?>
+                            <span id="fav-count" class="nav-badge"><?= $__favCount ?></span>
+                        <?php endif; ?>
+                    </a>
+                <?php endif; ?>
             </nav>
             <div class="header-actions">
                 <?php if (isLoggedIn()): ?>

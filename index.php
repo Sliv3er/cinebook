@@ -32,6 +32,7 @@ $routes = [
 
     // User routes
     'profile'         => 'controllers/ProfileController.php',
+    'favorites'       => 'controllers/FavoriteController.php',
 
     // Admin routes
     'admin'           => 'controllers/admin/DashboardController.php',

@@ -30,25 +30,34 @@
         <?php else: ?>
             <div class="movie-grid">
                 <?php foreach ($movies['data'] as $movie): ?>
-                    <a href="<?= BASE_URL ?>/index.php?page=movie&action=detail&id=<?= $movie['id'] ?>" class="movie-card" id="movie-card-<?= $movie['id'] ?>">
-                        <div class="poster-wrap">
-                            <?php if ($movie['poster']): ?>
-                                <img src="<?= posterUrl($movie['poster']) ?>" alt="<?= e($movie['title']) ?>" loading="lazy">
-                            <?php else: ?>
-                                <div class="no-poster"><i class="fas fa-film" style="font-size:2rem;opacity:0.3;"></i></div>
-                            <?php endif; ?>
-                            <div class="poster-overlay">
-                                <span class="btn btn-primary btn-sm">Voir les séances</span>
+                    <div class="movie-card-wrapper">
+                        <a href="<?= BASE_URL ?>/index.php?page=movie&action=detail&id=<?= $movie['id'] ?>" class="movie-card" id="movie-card-<?= $movie['id'] ?>">
+                            <div class="poster-wrap">
+                                <?php if ($movie['poster']): ?>
+                                    <img src="<?= posterUrl($movie['poster']) ?>" alt="<?= e($movie['title']) ?>" loading="lazy">
+                                <?php else: ?>
+                                    <div class="no-poster"><i class="fas fa-film" style="font-size:2rem;opacity:0.3;"></i></div>
+                                <?php endif; ?>
+                                <div class="poster-overlay">
+                                    <span class="btn btn-primary btn-sm">Voir les séances</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="movie-info">
-                            <div class="movie-title"><?= e($movie['title']) ?></div>
-                            <div class="movie-meta">
-                                <span><?= e($movie['genre']) ?></span>
-                                <span><?= $movie['duration_min'] ?> min</span>
+                            <div class="movie-info">
+                                <div class="movie-title"><?= e($movie['title']) ?></div>
+                                <div class="movie-meta">
+                                    <span><?= e($movie['genre']) ?></span>
+                                    <span><?= $movie['duration_min'] ?> min</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                        <?php if (isLoggedIn()): ?>
+                            <button class="fav-btn <?= in_array($movie['id'], $__favIds ?? []) ? 'is-fav' : '' ?>" 
+                                    onclick="toggleFav(<?= $movie['id'] ?>, this)" 
+                                    title="<?= in_array($movie['id'], $__favIds ?? []) ? 'Retirer des favoris' : 'Ajouter aux favoris' ?>">
+                                <i class="<?= in_array($movie['id'], $__favIds ?? []) ? 'fas' : 'far' ?> fa-star"></i>
+                            </button>
+                        <?php endif; ?>
+                    </div>
                 <?php endforeach; ?>
             </div>
 
@@ -68,5 +77,37 @@
         <?php endif; ?>
     </div>
 </div>
+
+<script>
+function toggleFav(movieId, btn) {
+    fetch('<?= BASE_URL ?>/index.php?page=favorites&action=toggle&id=' + movieId, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            const icon = btn.querySelector('i');
+            if (data.isFavorite) {
+                btn.classList.add('is-fav');
+                icon.classList.replace('far', 'fas');
+                btn.title = 'Retirer des favoris';
+            } else {
+                btn.classList.remove('is-fav');
+                icon.classList.replace('fas', 'far');
+                btn.title = 'Ajouter aux favoris';
+            }
+            // Update nav badge
+            let badge = document.getElementById('fav-count');
+            if (badge) {
+                badge.textContent = data.count;
+                badge.style.display = data.count > 0 ? '' : 'none';
+            }
+            // Quick animation
+            btn.style.transform = 'scale(1.3)';
+            setTimeout(() => btn.style.transform = '', 200);
+        }
+    });
+}
+</script>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
