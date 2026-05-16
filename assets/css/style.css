@@ -231,6 +231,33 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
 .section-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; }
 
+/* --- Search Box --- */
+.search-box {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--bg-input); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 8px 16px;
+    min-width: 260px; transition: border-color var(--transition);
+}
+.search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(229,9,20,0.12); }
+.search-box i { color: var(--text-muted); font-size: 0.85rem; flex-shrink: 0; }
+.search-box input {
+    background: none; border: none; outline: none;
+    color: var(--text-primary); font-size: 0.875rem;
+    width: 100%;
+}
+.search-box input::placeholder { color: var(--text-muted); }
+
+/* --- Filter Tabs --- */
+.filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter-tab {
+    padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;
+    background: var(--bg-elevated); color: var(--text-secondary);
+    border: 1px solid var(--border); transition: all var(--transition);
+    white-space: nowrap;
+}
+.filter-tab:hover { border-color: var(--border-hover); color: var(--text-primary); }
+.filter-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
 /* --- Seat Selection --- */
 .screen-indicator {
     text-align: center; margin-bottom: 40px; padding: 12px; color: var(--text-muted);
